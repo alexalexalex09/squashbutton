@@ -4,8 +4,6 @@ Buttons that tell you when you pressed them last, and change color if you don't 
 
 ## A React App
 
-1. Bootstrap css
-
 ### Universal Navigation
 
 1. Menu top left
