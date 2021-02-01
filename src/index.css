@@ -1,13 +1,60 @@
+/*[css00] Base Styles*/
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: "Castoro", -apple-system, BlinkMacSystemFont, "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--main-background);
+  color: var(--main-text);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Alegreya Sans SC", sans-serif;
+}
+
+h5,
+h6 {
+  font-family: "Castora", serif;
+  font-weight: bold;
+}
+
+:root {
+  --main-highlight: #eb6a2e;
+  --main-background: #2f4858;
+  --main-text: #fff;
+}
+
+/*[css01]  Title CSS*/
+
+.title {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr 3rem;
+  padding: 10px;
+  align-items: center;
+}
+
+img#logoImg {
+  height: 3em;
+}
+
+.titleText {
+  justify-self: right;
+  padding-right: 0.1rem;
+}
+
+#menuIcon {
+  font-size: 2.5rem;
+}
+
+/*[css02] Home CSS*/
+.home {
+  display: grid;
+  margin-top: 20vh;
+  place-items: center;
 }

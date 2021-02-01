@@ -1,5 +1,5 @@
 export { default as Title } from "./Title";
-export { default as Navigation } from "./Navigation";
+export { default as Menu } from "./Menu";
 export { default as Home } from "./Home";
 export { default as Panel } from "./Panel";
 export { default as CTA } from "./CTA";
