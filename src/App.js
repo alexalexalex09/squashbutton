@@ -1,34 +1,38 @@
 import React from "react";
-import { Title, Home, Panel } from "./components";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Home, Title } from "./components";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Loadable from "@loadable/component";
 
+/* Lazy Imports */
+function lazyImportPanel() {
+  import("./components/Panel");
+}
+
+/*function lazyImportHome() {
+  import("./components/Home");
+}*/
+
+function loading() {
+  <div className="loading">Loading</div>;
+}
+
+const Panel = Loadable({ loader: lazyImportPanel, loading: loading });
+
+/*Component functions*/
 function login() {
   console.log("login");
   return null;
 }
 
+/*Main return*/
 function App() {
   return (
     <div className="container">
-      <Router>
+      <BrowserRouter>
         <Title></Title>
         <Switch>
-          <Route
-            path="/"
-            exact
-            component={() => {
-              return <Home></Home>;
-            }}
-          ></Route>
-
-          <Route
-            path="/app"
-            exact
-            component={function showPanel() {
-              return <Panel></Panel>;
-            }}
-          ></Route>
-
+          <Route exact path="/" component={Home} />
+          <Route path="/panel" exact component={Panel}></Route>
           <Route
             path="/login"
             exact
@@ -38,7 +42,7 @@ function App() {
             }}
           ></Route>
         </Switch>
-      </Router>
+      </BrowserRouter>
     </div>
   );
 }
