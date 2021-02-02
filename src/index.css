@@ -24,10 +24,24 @@ h6 {
   font-weight: bold;
 }
 
+a {
+  color: var(--main-text);
+  text-decoration: none;
+}
+
 :root {
   --main-highlight: #eb6a2e;
   --main-background: #2f4858;
   --main-text: #fff;
+}
+
+.linkButton {
+  background-color: var(--main-highlight);
+  padding: 0.5em 2em;
+  border-radius: 12px;
+  font-size: 1.2em;
+  cursor: pointer;
+  display: inline-block;
 }
 
 /*[css01]  Title CSS*/
@@ -40,7 +54,8 @@ h6 {
 }
 
 img#logoImg {
-  height: 3em;
+  width: 3rem;
+  height: 3rem;
 }
 
 .titleText {
@@ -50,11 +65,17 @@ img#logoImg {
 
 #menuIcon {
   font-size: 2.5rem;
+  cursor: pointer;
 }
 
 /*[css02] Home CSS*/
+
 .home {
   display: grid;
   margin-top: 20vh;
   place-items: center;
+}
+
+.CTA {
+  text-align: center;
 }

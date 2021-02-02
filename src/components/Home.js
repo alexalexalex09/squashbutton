@@ -1,11 +1,10 @@
 import React from "react";
-import { CTA, Login } from "./";
+import { CTA } from "./";
 
 function Home() {
   return (
     <div className="home">
       <CTA></CTA>
-      <Login></Login>
     </div>
   );
 }
