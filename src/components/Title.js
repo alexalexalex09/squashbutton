@@ -1,10 +1,10 @@
 import React from "react";
-import { Menu } from "./";
+import { MenuIcon } from "./";
 
 function Title() {
   return (
     <div className="title">
-      <Menu></Menu>
+      <MenuIcon></MenuIcon>
       <h1 className="titleText">SquashButton</h1>
       <div className="logo">
         <a href="/">

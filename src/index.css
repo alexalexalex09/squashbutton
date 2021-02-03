@@ -9,12 +9,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--main-background);
   color: var(--main-text);
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 h1,
 h2,
 h3,
-h4 {
+h4,
+li {
   font-family: "Alegreya Sans SC", sans-serif;
 }
 
@@ -22,6 +30,11 @@ h5,
 h6 {
   font-family: "Castora", serif;
   font-weight: bold;
+}
+
+li {
+  list-style: none;
+  padding-left: 1rem;
 }
 
 a {
@@ -32,7 +45,20 @@ a {
 :root {
   --main-highlight: #bb4711;
   --main-background: #2f4858;
+  --secondary-background: #547387;
   --main-text: #fff;
+}
+
+.off {
+  display: none;
+}
+
+button {
+  background: unset;
+  border: unset;
+  color: var(--main-text);
+  font: inherit;
+  cursor: pointer;
 }
 
 .linkButton {
@@ -42,6 +68,13 @@ a {
   font-size: 1.2em;
   cursor: pointer;
   display: inline-block;
+}
+
+.closeButton {
+  font-size: 2rem;
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 
 /*[css01]  Title CSS*/
@@ -78,4 +111,26 @@ img#logoImg {
 
 .CTA {
   text-align: center;
+}
+
+/*[css03] Menu CSS*/
+#menu {
+  position: absolute;
+  width: 80vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: var(--secondary-background);
+}
+
+#menuContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+}
+
+li.menuItem {
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
