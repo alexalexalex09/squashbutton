@@ -134,7 +134,7 @@ img#logoImg {
   height: 100vh;
   top: 0;
   left: 0;
-  transition: all 0.92s;
+  transition: all 0.3s linear;
   background-color: var(--secondary-background);
 }
 
@@ -142,8 +142,7 @@ img#logoImg {
   position: relative;
   width: 100%;
   height: 100%;
-  padding: 0 2rem;
-  margin-top: 5rem;
+  padding: 5rem 2rem 0 2rem;
 }
 
 li.menuItem {
@@ -152,6 +151,7 @@ li.menuItem {
   text-align: center;
 }
 
+/*burger menu from https://css-tricks.com/hamburger-menu-with-a-side-of-react-hooks-and-styled-components/ */
 .burger {
   position: absolute;
   top: 2rem;
@@ -185,6 +185,7 @@ li.menuItem {
 
 .closedMenu .burgerToppings:nth-child(2) {
   opacity: 1;
+  transform: translateX(0px);
 }
 
 .openMenu .burgerToppings:first-child {
@@ -193,6 +194,7 @@ li.menuItem {
 
 .openMenu .burgerToppings:nth-child(2) {
   opacity: 0;
+  transform: translateX(50%);
 }
 
 .openMenu .burgerToppings:nth-child(3) {
