@@ -6,8 +6,14 @@ function toggleMenu() {
   var el = document.querySelector("#menu");
   if (el.classList.contains("off")) {
     el.classList.remove("off");
+    setTimeout(() => {
+      el.classList.remove("left");
+    }, 1);
   } else {
-    el.classList.add("off");
+    el.classList.add("left");
+    setTimeout(() => {
+      el.classList.add("off");
+    }, 1000);
   }
 }
 

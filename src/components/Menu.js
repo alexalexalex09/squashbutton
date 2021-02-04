@@ -4,7 +4,17 @@ import MenuItem from "./MenuItem";
 
 const closeMenu = function () {
   var el = document.querySelector("#menu");
-  el.classList.add("off");
+  if (el.classList.contains("off")) {
+    el.classList.remove("off");
+    setTimeout(() => {
+      el.classList.remove("left");
+    }, 1);
+  } else {
+    el.classList.add("left");
+    setTimeout(() => {
+      el.classList.add("off");
+    }, 1000);
+  }
 };
 
 function showColors() {
@@ -29,7 +39,7 @@ function signOut() {
 
 function Menu() {
   return (
-    <div id="menu" className="off">
+    <div id="menu" className="off left">
       <div id="menuContainer" className="container">
         <button className="closeButton" onClick={closeMenu}>
           <IoCloseCircleOutline></IoCloseCircleOutline>
