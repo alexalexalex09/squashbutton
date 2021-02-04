@@ -1,34 +1,38 @@
-import React from "react";
-import { IoMenu } from "react-icons/io5";
-import Menu from "./Menu";
+import React, { useState } from "react";
+import { Burger, Menu, MenuItem } from "./";
 
-function toggleMenu() {
-  var el = document.querySelector("#menu");
-  if (el.classList.contains("off")) {
-    el.classList.remove("off");
-    setTimeout(() => {
-      el.classList.remove("left");
-    }, 1);
-  } else {
-    el.classList.add("left");
-    setTimeout(() => {
-      el.classList.add("off");
-    }, 1000);
-  }
+function showColors() {
+  console.log("showColors");
+}
+
+function toggleLightMode() {
+  console.log("toggleLightMode");
+}
+
+function showTimeZone() {
+  console.log("showTimeZone");
+}
+
+function deleteAccountConfirm() {
+  console.log("deleteAccountConfirm");
+}
+
+function signOut() {
+  console.log("signOut");
 }
 
 function MenuIcon() {
+  const [open, setOpen] = useState(false);
   return (
     <div className="menuIconContainer">
-      <div
-        id="menuIcon"
-        onClick={function callToggleMenu() {
-          toggleMenu();
-        }}
-      >
-        <IoMenu></IoMenu>
-      </div>
-      <Menu></Menu>
+      <Burger open={open} setOpen={setOpen}></Burger>
+      <Menu open={open} setOpen={setOpen}>
+        <MenuItem onClick={showColors}>Colors</MenuItem>
+        <MenuItem onClick={toggleLightMode}>Light Mode</MenuItem>
+        <MenuItem onClick={showTimeZone}>Time Zone</MenuItem>
+        <MenuItem onClick={deleteAccountConfirm}>Delete Account</MenuItem>
+        <MenuItem onClick={signOut}>Sign Out</MenuItem>
+      </Menu>
     </div>
   );
 }
