@@ -32,7 +32,58 @@ app.use(compression());
 
 //Passport setup
 app.use(passport.initialize());
-require("./config/authConfig");
+require("dotenv").config();
+var passport = require("passport");
+var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL:
+        process.env.GOOGLE_CALLBACK_URL ||
+        "http://localhost:4000/auth/google/callback",
+    },
+    function (accessToken, refreshToken, profile, done) {
+      console.log("Got it!");
+      var userData = {
+        email: profile.emails[0].value,
+        name: profile.displayName,
+        token: accessToken,
+      };
+      done(null, userData);
+    }
+  )
+);
+
+console.log("looking for routes");
+app.get("/auth/google", () => {
+  console.log("Getting auth google");
+  passport.authenticate("google", { scope: ["profile"] });
+});
+
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/", session: false }),
+  function (req, res) {
+    res.redirect("/?token=" + req.user.token);
+  }
+);
+
+app.get("/auth/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
+
 app.use(function (req, res, next) {
   console.log("Finding user:" + typeof req.user);
   if (req.user) {
@@ -70,24 +121,7 @@ app.use(function (req, res, next) {
 
 //Routes
 //app.use("/auth", authRouter);
-console.log("looking for routes");
-app.get("/auth/google", () => {
-  console.log("Getting auth google");
-  passport.authenticate("google", { scope: ["profile"] });
-});
 
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/", session: false }),
-  function (req, res) {
-    res.redirect("/?token=" + req.user.token);
-  }
-);
-
-app.get("/auth/logout", (req, res) => {
-  req.logout();
-  res.redirect("/");
-});
 app.get("*", (req, res) => {
   console.log("Url: " + req.url);
   res.sendFile(path.join(__dirname + "/frontend/build/index.html"));
