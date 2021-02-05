@@ -20,6 +20,7 @@ passport.use(
         "http://localhost:4000/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, done) {
+      console.log("Got it!");
       var userData = {
         email: profile.emails[0].value,
         name: profile.displayName,

@@ -63,6 +63,7 @@ app.use(function (req, res, next) {
       }
     });
   } else {
+    console.log("No user yet");
     next();
   }
 });
