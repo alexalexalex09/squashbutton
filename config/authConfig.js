@@ -1,6 +1,4 @@
 require("dotenv").config();
-/*var mongoose = require("./mongo");
-var User = require("./models/users.js");*/
 var passport = require("passport");
 var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 

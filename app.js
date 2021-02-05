@@ -1,5 +1,4 @@
 require("dotenv").config();
-require("./config/authConfig");
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -7,10 +6,11 @@ var authRouter = require("./routes/auth");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 var compression = require("compression");
-const findOrCreateUser = require("./config/findOrCreateUser");
+var passport = require("passport");
+var mongoose = require("./mongo");
+var User = require("./models/users.js");
 
 var app = express();
-app.use(express.static(path.join(__dirname, "frontend/build")));
 
 //MongoDB Cookie Storage Setup
 var sess = {
@@ -30,13 +30,64 @@ app.use(session(sess));
 app.use(compression());
 
 //Passport setup
-app.use(function (req, res, next) {
-  findOrCreateUser(req, res, next);
-});
+app.use(passport.initialize());
+require("./config/authConfig");
+/*app.use(function (req, res, next) {
+  console.log("Finding user:" + typeof req.user);
+  if (req.user) {
+    User.findOne({ profile_id: req.user.id }).exec((err, curUser) => {
+      if (curUser) {
+        if (typeof curUser.name == "undefined") {
+          curUser.name = req.user.displayName;
+          curUser.save().then(() => {
+            res.locals.username = curUser.name;
+            //console.log("Name is " + res.locals.username);
+            next();
+          });
+        } else {
+          res.locals.username = curUser.name;
+          next();
+        }
+      } else {
+        res.locals.username = "";
+        newUser = {
+          profile_id: req.user.id,
+          name: req.user.displayName,
+        };
+        res.locals.username = req.user.displayName;
+        curUser = new User(newUser);
+        curUser.save().then(() => {
+          next();
+        });
+      }
+    });
+  } else {
+    next();
+  }
+});*/
 
 //Routes
-app.use("/auth", authRouter);
+//app.use("/auth", authRouter);
+console.log("looking for routes");
+app.get("/auth/google", () => {
+  console.log("Getting auth google");
+  passport.authenticate("google", { scope: ["profile"] });
+});
+
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/", session: false }),
+  function (req, res) {
+    res.redirect("/?token=" + req.user.token);
+  }
+);
+
+app.get("/auth/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
 app.get("*", (req, res) => {
+  console.log("Url: " + req.url);
   res.sendFile(path.join(__dirname + "/frontend/build/index.html"));
 });
 
