@@ -8,7 +8,7 @@ const MongoStore = require("connect-mongo")(session);
 var compression = require("compression");
 var passport = require("passport");
 var mongoose = require("./mongo");
-var User = require("./models/users.js");
+var User = require("./models/Users");
 
 var app = express();
 
