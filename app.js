@@ -1,17 +1,18 @@
 require("dotenv").config();
+require("./config/authConfig");
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
-require("./authConfig");
 var authRouter = require("./routes/auth");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 var compression = require("compression");
+const findOrCreateUser = require("./config/findOrCreateUser");
 
 var app = express();
 app.use(express.static(path.join(__dirname, "frontend/build")));
 
-//MongoDB Setup
+//MongoDB Cookie Storage Setup
 var sess = {
   secret: process.env.CONNECT_MONGO_SECRET,
   saveUninitialized: true, // create session before something stored
@@ -25,10 +26,16 @@ if (app.get("env") === "production") {
 }
 app.use(session(sess));
 
+//Use Compression
 app.use(compression());
 
-app.use("/auth", authRouter);
+//Passport setup
+app.use(function (req, res, next) {
+  findOrCreateUser(req, res, next);
+});
 
+//Routes
+app.use("/auth", authRouter);
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/frontend/build/index.html"));
 });

@@ -31,14 +31,3 @@ passport.use(
     }
   )
 );
-
-/*
-var upsertOptions = { new: true, upsert: true };
-          User.findOneAndUpdate(
-            {
-              profile_id: req.user.id,
-            },
-            { profile_id: req.user.id },
-            upsertOptions,
-            function (err, curUser) {
-*/
