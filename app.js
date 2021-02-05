@@ -11,6 +11,7 @@ var mongoose = require("./mongo");
 var User = require("./models/Users");
 
 var app = express();
+app.use(express.static(path.join(__dirname, "frontend/build")));
 
 //MongoDB Cookie Storage Setup
 var sess = {
@@ -32,7 +33,7 @@ app.use(compression());
 //Passport setup
 app.use(passport.initialize());
 require("./config/authConfig");
-/*app.use(function (req, res, next) {
+app.use(function (req, res, next) {
   console.log("Finding user:" + typeof req.user);
   if (req.user) {
     User.findOne({ profile_id: req.user.id }).exec((err, curUser) => {
@@ -64,7 +65,7 @@ require("./config/authConfig");
   } else {
     next();
   }
-});*/
+});
 
 //Routes
 //app.use("/auth", authRouter);
