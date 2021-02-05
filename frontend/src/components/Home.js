@@ -1,5 +1,5 @@
 import React from "react";
-import { CTA } from "./";
+import { CTA } from ".";
 
 function Home() {
   return (

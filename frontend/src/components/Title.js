@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuIcon } from "./";
+import { MenuIcon } from ".";
 
 function Title() {
   return (

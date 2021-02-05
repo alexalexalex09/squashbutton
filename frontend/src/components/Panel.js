@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AddNewButton, ButtonPlaceHolder /*, SquashButton*/ } from "./";
+import { AddNewButton, ButtonPlaceHolder /*, SquashButton*/ } from ".";
 
 function Panel() {
   return (

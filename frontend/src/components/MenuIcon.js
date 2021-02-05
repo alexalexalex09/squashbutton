@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Burger, Menu, MenuItem } from "./";
+import { Burger, Menu, MenuItem } from ".";
 
 function showColors() {
   console.log("showColors");
