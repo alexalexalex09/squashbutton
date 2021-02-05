@@ -9,7 +9,7 @@ const MongoStore = require("connect-mongo")(session);
 var compression = require("compression");
 
 var app = express();
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "frontend/build")));
 
 //MongoDB Setup
 var sess = {
@@ -30,7 +30,7 @@ app.use(compression());
 app.use("/auth", authRouter);
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+  res.sendFile(path.join(__dirname + "/frontend/build/index.html"));
 });
 
 // catch 404 and forward to error handler
