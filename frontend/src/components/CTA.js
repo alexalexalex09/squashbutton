@@ -21,7 +21,7 @@ function CTA() {
         Join now!
       </div>
       <div className="login">
-        <a href="/auth/google">Click here to log in</a>
+        <a href="/auth/google">Click here to log in.</a>
       </div>
     </div>
   );

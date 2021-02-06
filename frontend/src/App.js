@@ -31,7 +31,7 @@ function App() {
       <BrowserRouter>
         <Title></Title>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route path="/" component={Home} />
           <Route path="/panel" exact component={Panel}></Route>
           <Route
             path="/login"
