@@ -4,12 +4,16 @@ var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 var logger = require("morgan");
-const passport = require("passport");
+const compression = require("compression");
+var passport = require("passport");
+var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 var authRouter = require("./routes/auth");
+var apiRouter = require("./routes/api");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-const compression = require("compression");
+const User = require("./models/Users");
 
 var app = express();
 
@@ -19,24 +23,6 @@ var app = express();
 } else {
   process.env.REACT_DIR = "/frontend/public";
 }*/
-
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
-
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-app.use(function (req, res, next) {
-  if (req.user) {
-    var theuser = req.user;
-    console.log({ theuser });
-  } else {
-    console.log("No user");
-  }
-  next();
-});
 
 //MongoDB Cookie Storage Setup
 var sess = {
@@ -56,10 +42,83 @@ app.use(session(sess));
 app.use(compression());
 
 //Passport setup
+var strategy = new GoogleStrategy(
+  {
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL:
+      process.env.GOOGLE_CALLBACK_URL ||
+      "http://localhost:4000/auth/google/callback",
+  },
+  function (accessToken, refreshToken, profile, done) {
+    console.log("Got it!");
+    console.log("ID: " + profile.id);
+    return done(null, profile);
+  }
+);
+passport.use(strategy);
 app.use(passport.initialize());
-require("./config/authConfig");
+app.use(passport.session());
+
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
+
+//require("./config/authConfig");
+
+app.use(function (req, res, next) {
+  if (req.user) {
+    console.log(req.user.provider + "|" + req.user.id);
+  } else {
+    console.log("No user");
+  }
+  next();
+});
+
+app.use((req, res, next) => {
+  if (req.user) {
+    res.locals.user = req.user;
+    var profile = req.user;
+    User.findOne({ profile_id: profile.id }).exec((err, curUser) => {
+      if (curUser) {
+        if (typeof curUser.name == "undefined") {
+          curUser.name = profile.displayName;
+          curUser.save().then(() => {
+            next();
+          });
+        } else {
+          next();
+        }
+      } else {
+        newUser = {
+          profile_id: profile.id,
+          name: profile.displayName,
+        };
+        curUser = new User(newUser);
+        curUser.save().then(() => {
+          next();
+        });
+      }
+    });
+  } else {
+    console.log("No user to save");
+    next();
+  }
+});
 
 app.use("/", authRouter);
+app.use("/", apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -73,6 +132,7 @@ app.use(function (err, req, res, next) {
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
+  console.log("Error: " + err);
   res.status(err.status || 500);
   res.send("error: " + err);
 });

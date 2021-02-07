@@ -10,7 +10,7 @@ router.get(
 
 router.get(
   "/auth/google/callback",
-  function (req, res, next) {
+  (req, res, next) => {
     console.log("Callback");
     next();
   },

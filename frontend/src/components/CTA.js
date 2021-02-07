@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function signUp() {
   console.log("signUp");
 }
 
 function CTA() {
+  const [data, setData] = useState("No user");
+  useEffect(() => {
+    fetch("/api/user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      console.log({ response });
+      response.json().then((res) => {
+        setData(res.user.displayName);
+        //TODO: Do what's actually needed here.
+      });
+    });
+  }, [data]);
   return (
     <div className="CTA">
       <div className="CTAText">
@@ -14,7 +30,7 @@ function CTA() {
       </div>
       <div
         className="linkButton"
-        onClick={function callSignUp() {
+        onClick={() => {
           signUp();
         }}
       >
@@ -23,6 +39,7 @@ function CTA() {
       <div className="login">
         <a href="/auth/google">Click here to log in.</a>
       </div>
+      <div className="data">{data}</div>
     </div>
   );
 }
