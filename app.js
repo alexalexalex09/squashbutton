@@ -18,11 +18,11 @@ const User = require("./models/Users");
 var app = express();
 
 //Set directory for serving react files based on whether we're in production or not
-/*if (app.get("env") === "production") {
+if (app.get("env") === "production") {
   process.env.REACT_DIR = "/frontend/build";
 } else {
   process.env.REACT_DIR = "/frontend/public";
-}*/
+}
 
 //MongoDB Cookie Storage Setup
 var sess = {
@@ -68,6 +68,7 @@ passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
+//Rest of express setup at the right time
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
@@ -75,20 +76,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-//require("./config/authConfig");
-
-app.use(function (req, res, next) {
-  if (req.user) {
-    console.log(req.user.provider + "|" + req.user.id);
-  } else {
-    console.log("No user");
-  }
-  next();
-});
-
+//Save new user if needed
 app.use((req, res, next) => {
   if (req.user) {
-    res.locals.user = req.user;
+    //res.locals.user = req.user; //Not sure if this works in React
     var profile = req.user;
     User.findOne({ profile_id: profile.id }).exec((err, curUser) => {
       if (curUser) {
@@ -117,6 +108,7 @@ app.use((req, res, next) => {
   }
 });
 
+//Routes
 app.use("/", authRouter);
 app.use("/", apiRouter);
 

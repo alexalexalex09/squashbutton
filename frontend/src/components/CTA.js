@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
 function signUp() {
   console.log("signUp");
@@ -14,7 +13,6 @@ function CTA() {
         "Content-Type": "application/json",
       },
     }).then((response) => {
-      console.log({ response });
       response.json().then((res) => {
         setData(res.user.displayName);
         //TODO: Do what's actually needed here.
