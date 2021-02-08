@@ -151,6 +151,12 @@ li.menuItem {
   text-align: center;
 }
 
+.menuUser {
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
 /*burger menu from https://css-tricks.com/hamburger-menu-with-a-side-of-react-hooks-and-styled-components/ */
 .burger {
   position: absolute;

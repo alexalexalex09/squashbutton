@@ -19,11 +19,14 @@ router.get(
     session: false,
   }),
   function (req, res) {
-    res.redirect(process.env.CLIENT_URL);
+    req.logIn(req.user, function (err) {
+      res.redirect(process.env.CLIENT_URL);
+    });
   }
 );
 
-router.get("/logout", (req, res) => {
+router.get("/auth/logout", (req, res) => {
+  console.log("Logout");
   req.logout();
   res.redirect("/");
 });

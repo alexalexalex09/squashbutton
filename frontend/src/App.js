@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Home, Title } from "./components";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Loadable from "@loadable/component";
+import { UserContext } from "./context/UserContext";
 
 /* Lazy Imports */
 function lazyImportPanel() {
@@ -26,23 +27,26 @@ function login() {
 
 /*Main return*/
 function App() {
+  const [user, setUser] = useState(null);
   return (
     <div className="container">
-      <BrowserRouter>
-        <Title></Title>
-        <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/panel" exact component={Panel}></Route>
-          <Route
-            path="/login"
-            exact
-            component={function showLogin() {
-              login();
-              return null;
-            }}
-          ></Route>
-        </Switch>
-      </BrowserRouter>
+      <UserContext.Provider value={{ user, setUser }}>
+        <BrowserRouter>
+          <Title></Title>
+          <Switch>
+            <Route path="/" component={Home} />
+            <Route path="/panel" exact component={Panel}></Route>
+            <Route
+              path="/login"
+              exact
+              component={function showLogin() {
+                login();
+                return null;
+              }}
+            ></Route>
+          </Switch>
+        </BrowserRouter>
+      </UserContext.Provider>
     </div>
   );
 }

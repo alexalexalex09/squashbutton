@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 function signUp() {
   console.log("signUp");
@@ -6,6 +7,8 @@ function signUp() {
 
 function CTA() {
   const [data, setData] = useState("No user");
+  const { user, setUser } = useContext(UserContext);
+  console.log({ user });
   useEffect(() => {
     fetch("/api/user", {
       method: "GET",
@@ -14,11 +17,17 @@ function CTA() {
       },
     }).then((response) => {
       response.json().then((res) => {
-        setData(res.user.displayName);
+        if (res.user) {
+          setData(res.user.displayName);
+          setUser(res.user.displayName);
+        } else {
+          setData("No user!");
+        }
         //TODO: Do what's actually needed here.
       });
     });
-  }, [data]);
+  }, [setUser]);
+
   return (
     <div className="CTA">
       <div className="CTAText">
