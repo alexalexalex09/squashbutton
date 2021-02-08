@@ -35,6 +35,7 @@ var sess = {
 if (app.get("env") === "production") {
   sess.cookie.secure = true; // Use secure cookies in production (requires SSL/TLS)
   app.set("trust proxy", 1); //Use if behind proxy, such as Heroku
+  console.log(req.url);
 }
 app.use(session(sess));
 

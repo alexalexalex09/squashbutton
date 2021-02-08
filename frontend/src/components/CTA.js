@@ -9,18 +9,26 @@ function CTA() {
   const { user, setUser } = useContext(UserContext);
   console.log({ user });
   useEffect(() => {
-    fetch("/api/user", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((response) => {
-      response.json().then((res) => {
-        if (res.user) {
-          setUser(res.user.displayName);
-        }
+    const localUser = localStorage.getItem("user");
+    if (localUser) {
+      //setUser(localUser);
+    } else {
+      fetch("/api/user", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => {
+        response.json().then((res) => {
+          if (res.user) {
+            setUser(res.user.displayName);
+            //localStorage.setItem("user", res.user.displayName);
+          } else {
+            //localStorage.removeItem("user");
+          }
+        });
       });
-    });
+    }
   }, [setUser]);
 
   return (
