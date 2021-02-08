@@ -9,3 +9,4 @@ export { default as ButtonPlaceHolder } from "./ButtonPlaceHolder";
 export { default as SquashButton } from "./SquashButton";
 export { default as AddNewButton } from "./AddNewButton";
 export { default as Burger } from "./Burger";
+export { default as Page } from "./Page";

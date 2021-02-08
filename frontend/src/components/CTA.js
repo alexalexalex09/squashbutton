@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
 function signUp() {
@@ -6,7 +6,6 @@ function signUp() {
 }
 
 function CTA() {
-  const [data, setData] = useState("No user");
   const { user, setUser } = useContext(UserContext);
   console.log({ user });
   useEffect(() => {
@@ -18,12 +17,8 @@ function CTA() {
     }).then((response) => {
       response.json().then((res) => {
         if (res.user) {
-          setData(res.user.displayName);
           setUser(res.user.displayName);
-        } else {
-          setData("No user!");
         }
-        //TODO: Do what's actually needed here.
       });
     });
   }, [setUser]);
@@ -46,7 +41,6 @@ function CTA() {
       <div className="login">
         <a href="/auth/google">Click here to log in.</a>
       </div>
-      <div className="data">{data}</div>
     </div>
   );
 }

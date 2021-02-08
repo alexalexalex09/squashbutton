@@ -161,7 +161,7 @@ li.menuItem {
 .burger {
   position: absolute;
   top: 2rem;
-  left: 2rem;
+  left: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
