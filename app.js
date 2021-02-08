@@ -17,13 +17,6 @@ const User = require("./models/Users");
 
 var app = express();
 
-//Set directory for serving react files based on whether we're in production or not
-if (app.get("env") === "production") {
-  process.env.REACT_DIR = "/frontend/build";
-} else {
-  process.env.REACT_DIR = "/frontend/public";
-}
-
 //MongoDB Cookie Storage Setup
 var sess = {
   secret: process.env.CONNECT_MONGO_SECRET,
@@ -74,7 +67,11 @@ app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use((req, res, next) => {
+  console.log(path.join(__dirname + process.env.REACT_DIR + "/index.html"));
+  next();
+});
+app.use(express.static(path.join(__dirname, process.env.REACT_DIR))); //This is wrong??
 
 //Save new user if needed
 app.use((req, res, next) => {
@@ -111,6 +108,9 @@ app.use((req, res, next) => {
 //Routes
 app.use("/", authRouter);
 app.use("/", apiRouter);
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + process.env.REACT_DIR + "/index.html"));
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -122,7 +122,8 @@ app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
-  console.log(res.url);
+  console.log("Env: " + req.app.get("env"));
+  console.log(req.url);
   // render the error page
   console.log("Error: " + err);
   res.status(err.status || 500);
