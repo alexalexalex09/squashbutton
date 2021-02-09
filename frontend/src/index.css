@@ -1,8 +1,10 @@
+/********************************************/
 /*[css00] Base Styles*/
+/********************************************/
 
 body {
   margin: 0;
-  font-family: "Castoro", -apple-system, BlinkMacSystemFont, "Roboto", "Oxygen",
+  font-family: "Asap", -apple-system, BlinkMacSystemFont, "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -28,7 +30,7 @@ li {
 
 h5,
 h6 {
-  font-family: "Castora", serif;
+  font-family: "Asap", sans-serif;
   font-weight: bold;
 }
 
@@ -87,7 +89,9 @@ button {
   right: 5px;
 }
 
+/********************************************/
 /*[css01]  Title CSS*/
+/********************************************/
 
 .title {
   display: grid;
@@ -111,8 +115,9 @@ img#logoImg {
   cursor: pointer;
 }
 
+/********************************************/
 /*[css02] Home CSS*/
-
+/********************************************/
 .home {
   display: grid;
   margin-top: 20vh;
@@ -127,7 +132,9 @@ img#logoImg {
   max-width: 400px;
 }
 
+/********************************************/
 /*[css03] Menu CSS*/
+/********************************************/
 #menu {
   position: absolute;
   width: min(25rem, 100vw);
@@ -205,4 +212,40 @@ li.menuItem {
 
 .openMenu .burgerToppings:nth-child(3) {
   transform: rotate(-45deg);
+}
+
+/********************************************/
+/*[css04] Panel CSS*/
+/********************************************/
+
+.panel {
+  display: flex;
+  flex-direction: column;
+}
+
+/********************************************/
+/*[css05] AddNewButton CSS*/
+/********************************************/
+
+.addNewButton {
+  width: 80%;
+  border: 3px solid var(--main-white);
+  margin: 1rem auto;
+  text-align: center;
+  padding: 1em;
+  border-radius: 12px;
+}
+
+.buttonPlaceHolder {
+  border: 3px solid var(--main-white);
+  margin: 1rem auto;
+  width: 80%;
+  height: 14rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.plus {
+  font-size: 5rem;
+  line-height: 3rem;
 }
