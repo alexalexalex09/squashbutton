@@ -8,6 +8,7 @@ function App() {
 
   return (
     <div className="container">
+      {/*Let each section have access to user variable*/}
       <UserContext.Provider value={{ user, setUser }}>
         {/*Header on every page*/}
         <Title></Title>

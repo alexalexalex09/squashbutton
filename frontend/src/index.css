@@ -231,21 +231,25 @@ li.menuItem {
   width: 80%;
   border: 3px solid var(--main-white);
   margin: 1rem auto;
+  border-radius: 12px;
   text-align: center;
   padding: 1em;
-  border-radius: 12px;
-}
-
-.buttonPlaceHolder {
-  border: 3px solid var(--main-white);
-  margin: 1rem auto;
-  width: 80%;
-  height: 14rem;
-  border-radius: 12px;
-  text-align: center;
 }
 
 .plus {
   font-size: 5rem;
   line-height: 3rem;
+}
+
+/********************************************/
+/*[css06] AddNewButton CSS*/
+/********************************************/
+
+.squashButton {
+  border: 3px solid var(--main-white);
+  width: 80%;
+  margin: 1rem auto;
+  border-radius: 12px;
+  text-align: center;
+  height: 14rem;
 }
