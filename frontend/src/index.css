@@ -242,7 +242,7 @@ li.menuItem {
 }
 
 /********************************************/
-/*[css06] AddNewButton CSS*/
+/*[css06] SquashButton CSS*/
 /********************************************/
 
 .squashButton {
@@ -252,4 +252,21 @@ li.menuItem {
   border-radius: 12px;
   text-align: center;
   height: 14rem;
+  display: grid;
+  grid-template-rows: 1fr 2rem;
+  align-items: center;
+}
+
+.squashButtonIcon {
+  background-image: url("./images/button.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: min(40vw, 200px);
+  height: min(40vw, 200px);
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.squashButtonIcon.pressed {
+  background-image: url("./images/button-pressed.svg");
 }

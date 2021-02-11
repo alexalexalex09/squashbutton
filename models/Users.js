@@ -9,7 +9,9 @@ var UserSchema = new Schema(
     name: String,
     preferences: {
       darkMode: Boolean,
+      timeZone: String,
     },
+    buttons: [{ type: Schema.Types.ObjectId, ref: "Button" }],
   },
   { collection: "users" }
 );
