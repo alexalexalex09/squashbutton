@@ -258,6 +258,8 @@ li.menuItem {
 .plus {
   font-size: 5rem;
   line-height: 3rem;
+  width: 5rem;
+  margin: 0 auto;
 }
 
 /********************************************/
