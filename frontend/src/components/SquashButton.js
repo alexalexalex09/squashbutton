@@ -8,8 +8,8 @@ function SquashButton(props) {
       <button
         className={
           pressed
-            ? "squashButtonIcon pressed unselectable"
-            : "squashButtonIcon unselectable"
+            ? "squashButtonIcon pressed unselectable noFocus"
+            : "squashButtonIcon unselectable noFocus"
         }
         onMouseDown={() => setPressed(true)}
         onMouseUp={() => setPressed(false)}

@@ -18,7 +18,7 @@ function CTA() {
         if (res.user) {
           setUser(res.user.displayName);
         } else {
-          console.error("No user found");
+          console.log("No user found");
         }
       });
     });

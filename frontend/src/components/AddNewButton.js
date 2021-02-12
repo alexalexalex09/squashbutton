@@ -1,9 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { UserContext } from "../context/UserContext";
 import { FiPlus } from "react-icons/fi";
 
 function AddNewButton() {
   const { user } = useContext(UserContext);
+  const formRef = useRef(null);
+  const [newButton, setNewButton] = useState("New Button");
+
+  function toggleAddDialog() {
+    formRef.current.classList.toggle("showInput");
+    formRef.current.querySelector("input[type='text']").select();
+  }
+
   function createButton() {
     const body = JSON.stringify({ user: user });
     fetch("/api/buttons/create", {
@@ -21,13 +29,24 @@ function AddNewButton() {
         }
       });
     });
+    return false;
   }
+
   return (
-    <div className="addNewButton">
-      <div className="plus" onClick={createButton}>
+    <div ref={formRef} className="addNewButton">
+      <div className="plus" onClick={toggleAddDialog}>
         <FiPlus></FiPlus>
       </div>
       <div className="addNewButtonTitle">Add New Button</div>
+      <form className="addDialog" onSubmit={createButton}>
+        <input
+          className="noFocus"
+          type="text"
+          value={newButton}
+          onChange={(e) => setNewButton(e.target.value)}
+        ></input>
+        <input type="submit" value="Add"></input>
+      </form>
     </div>
   );
 }

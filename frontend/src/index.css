@@ -49,11 +49,19 @@ a {
   --main-background: #2f4858;
   --secondary-background: #547387;
   --main-text: #fff;
+  --main-black-text: #000;
   --main-white: #fff;
+  --main-black: #000;
 }
 
 .off {
-  display: none;
+  display: none !important;
+}
+
+.disappear {
+  opacity: 0 !important;
+  width: 0px !important;
+  height: 0px !important;
 }
 
 .left {
@@ -104,7 +112,7 @@ button {
   user-select: none !important;
 }
 
-.unselectable:focus {
+.noFocus:focus {
   outline: none;
 }
 
@@ -253,6 +261,26 @@ li.menuItem {
   border-radius: 12px;
   text-align: center;
   padding: 1em;
+  display: grid;
+  justify-content: center;
+}
+
+.addNewButtonTitle {
+  transition: all 0.2s linear;
+  height: 1rem;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  justify-self: center;
+  justify-content: center;
+  display: grid;
+}
+
+.addNewButton.showInput .addNewButtonTitle {
+  height: 0px;
+  width: 0px;
+  opacity: 0;
 }
 
 .plus {
@@ -260,6 +288,40 @@ li.menuItem {
   line-height: 3rem;
   width: 5rem;
   margin: 0 auto;
+  cursor: pointer;
+}
+
+.addDialog {
+  height: 0px;
+  width: 0px;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.2s linear;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-row-gap: 0.3rem;
+  justify-content: center;
+  justify-self: center;
+  justify-items: center;
+}
+
+.addNewButton.showInput .addDialog {
+  height: 3rem;
+  width: max(50%, 10rem);
+  opacity: 1;
+}
+
+.addDialog input[type="text"] {
+  background-color: var(--main-white);
+  color: var(--main-black-text);
+  text-align: center;
+  border: none;
+  border-radius: 3px;
+  width: 100%;
+  height: 1.4rem;
+  justify-self: center;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 /********************************************/
