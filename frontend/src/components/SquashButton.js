@@ -5,11 +5,17 @@ function SquashButton(props) {
   const [pressed, setPressed] = useState(false);
   return (
     <div className="squashButton" id={props.id}>
-      <div
-        className={pressed ? "squashButtonIcon pressed" : "squashButtonIcon"}
+      <button
+        className={
+          pressed
+            ? "squashButtonIcon pressed unselectable"
+            : "squashButtonIcon unselectable"
+        }
         onMouseDown={() => setPressed(true)}
         onMouseUp={() => setPressed(false)}
-      ></div>
+        onTouchStart={() => setPressed(true)}
+        onTouchEnd={() => setPressed(false)}
+      ></button>
       <div className="squashButtonName">{props.name}</div>
     </div>
   );
