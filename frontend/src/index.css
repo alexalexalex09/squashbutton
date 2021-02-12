@@ -274,14 +274,15 @@ li.menuItem {
   display: grid;
   grid-template-rows: 1fr 2rem;
   align-items: center;
+  box-sizing: content-box;
 }
 
 .squashButtonIcon {
   background-image: url("./images/button.svg");
   background-size: contain;
   background-repeat: no-repeat;
-  width: min(40vw, 200px);
-  height: min(40vw, 200px);
+  width: min(12rem, 200px);
+  height: min(12rem, 200px);
   margin: 0 auto;
   cursor: pointer;
 }
