@@ -2,7 +2,7 @@ import React, { useContext, useState, useRef } from "react";
 import { UserContext } from "../context/UserContext";
 import { FiPlus } from "react-icons/fi";
 
-function AddNewButton() {
+function AddNewButton(props) {
   const { user } = useContext(UserContext);
   const formRef = useRef(null);
   const [newButton, setNewButton] = useState("New Button");
@@ -12,8 +12,10 @@ function AddNewButton() {
     formRef.current.querySelector("input[type='text']").select();
   }
 
-  function createButton() {
-    const body = JSON.stringify({ user: user });
+  function createButton(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const body = JSON.stringify({ user: user, title: newButton });
     fetch("/api/buttons/create", {
       method: "POST",
       body: body,
@@ -22,14 +24,16 @@ function AddNewButton() {
       },
     }).then((response) => {
       response.json().then((res) => {
-        if (res.buttons) {
+        console.log(res);
+        if (res) {
           console.log(res.buttons);
+          toggleAddDialog();
+          props.createFunction();
         } else {
           console.error("No button created");
         }
       });
     });
-    return false;
   }
 
   return (
@@ -38,14 +42,14 @@ function AddNewButton() {
         <FiPlus></FiPlus>
       </div>
       <div className="addNewButtonTitle">Add New Button</div>
-      <form className="addDialog" onSubmit={createButton}>
+      <form className="addDialog" onSubmit={(e) => createButton(e)}>
         <input
           className="noFocus"
           type="text"
           value={newButton}
           onChange={(e) => setNewButton(e.target.value)}
         ></input>
-        <input type="submit" value="Add"></input>
+        <input type="submit" value="✓"></input>
       </form>
     </div>
   );

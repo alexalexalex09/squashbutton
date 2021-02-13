@@ -267,7 +267,7 @@ li.menuItem {
 
 .addNewButtonTitle {
   transition: all 0.2s linear;
-  height: 1rem;
+  height: 1.5rem;
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
@@ -278,7 +278,6 @@ li.menuItem {
 }
 
 .addNewButton.showInput .addNewButtonTitle {
-  height: 0px;
   width: 0px;
   opacity: 0;
 }
@@ -292,13 +291,14 @@ li.menuItem {
 }
 
 .addDialog {
-  height: 0px;
+  position: relative;
+  transform: translateY(-1.5rem);
   width: 0px;
   opacity: 0;
   overflow: hidden;
   transition: all 0.2s linear;
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr;
   grid-row-gap: 0.3rem;
   justify-content: center;
   justify-self: center;
@@ -306,7 +306,7 @@ li.menuItem {
 }
 
 .addNewButton.showInput .addDialog {
-  height: 3rem;
+  height: 1.4rem;
   width: max(50%, 10rem);
   opacity: 1;
 }
@@ -314,7 +314,7 @@ li.menuItem {
 .addDialog input[type="text"] {
   background-color: var(--main-white);
   color: var(--main-black-text);
-  text-align: center;
+  text-align: left;
   border: none;
   border-radius: 3px;
   width: 100%;
@@ -322,6 +322,26 @@ li.menuItem {
   justify-self: center;
   font-family: inherit;
   font-size: inherit;
+  padding: 1px 1.6rem 1px 1px;
+}
+
+.addDialog input[type="submit"] {
+  background: var(--main-white);
+  color: var(--main-black-text);
+  border: 2px solid var(--main-background);
+  border-radius: 12px;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  height: 1.2rem;
+  width: 1.2rem;
+  line-height: 0.9rem;
+  position: absolute;
+  right: 0;
+  font-size: 1.1rem;
+  padding-right: 0.3rem;
+  margin: 0.1rem;
+  cursor: pointer;
 }
 
 /********************************************/
@@ -334,7 +354,7 @@ li.menuItem {
   margin: 1rem auto;
   border-radius: 12px;
   text-align: center;
-  height: 14rem;
+  height: 15rem;
   display: grid;
   grid-template-rows: 1fr 2rem;
   align-items: center;
@@ -347,7 +367,7 @@ li.menuItem {
   background-repeat: no-repeat;
   width: min(12rem, 200px);
   height: min(12rem, 200px);
-  margin: 0 auto;
+  margin: 1rem auto 0 auto;
   cursor: pointer;
 }
 

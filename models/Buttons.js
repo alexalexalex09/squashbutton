@@ -7,12 +7,14 @@ var ButtonSchema = new Schema(
   {
     title: String,
     history: [String],
-    colors: [{ interval: String, color: String }],
-    preferences: {
-      darkMode: Boolean,
-    },
+    colors: [
+      {
+        interval: String,
+        color: String,
+      },
+    ],
   },
-  { collection: "users" }
+  { collection: "buttons" }
 );
 
 module.exports = mongoose.model("Button", ButtonSchema);
