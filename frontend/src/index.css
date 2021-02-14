@@ -52,6 +52,8 @@ a {
   --main-black-text: #000;
   --main-white: #fff;
   --main-black: #000;
+  --main-red: #ab0505;
+  --main-green: #085808;
 }
 
 .off {
@@ -95,6 +97,14 @@ button {
   position: absolute;
   top: 5px;
   right: 5px;
+}
+
+.redButton {
+  background-color: var(--main-red);
+}
+
+.greenButton {
+  background-color: var(--main-green);
 }
 
 .unselectable {
@@ -400,4 +410,62 @@ li.menuItem {
 
 .buttonSettingsContainer.show {
   transform: scale(1, 1);
+}
+
+/********************************************/
+/*[css07] Confirm CSS*/
+/********************************************/
+
+.confirmContainer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 11;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(5px);
+  background-color: #00000070;
+}
+
+.confirm {
+  height: 100%;
+  width: 100%;
+  background: var(--main-background);
+  border: 3px solid var(--main-white);
+  border-radius: 12px;
+}
+
+.confirmTitle {
+  border-bottom: 2px solid var(--main-white);
+  margin: 1rem;
+  padding-bottom: 0.5rem;
+  text-align: left;
+}
+
+.confirmButtons {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: space-evenly;
+}
+
+.confirmButtons button {
+  width: auto;
+  min-width: 4rem;
+  padding: 0.3rem 1rem;
+  margin-bottom: 1rem;
+  border: 3px solid var(--main-white);
+  border-radius: 7px;
+}
+
+.shadow {
+  display: inherit;
+  height: min(20rem, 100%);
+  width: 90%;
+  position: fixed;
+  top: 5%;
+  left: 5%;
+  box-sizing: border-box;
 }

@@ -8,6 +8,7 @@ router.get("/api/user", (req, res) => {
 });
 
 router.post("/api/user/set_prefs", (req, res) => {
+  //TODO
   res.send({ success: "Set light mode, time zone, and username" });
 });
 
@@ -109,6 +110,19 @@ router.post("/api/buttons/delete", (req, res) => {
   } else {
     res.send({ error: "No ID Found" });
   }
+});
+
+router.post("/api/buttons/press", (req, res) => {
+  //TODO
+  res.send({
+    success:
+      "Current time pushed to button history and history size reduced to 1000 or less",
+  });
+});
+
+router.post("/api/buttons/unpress", (req, res) => {
+  //TODO
+  res.send({ success: "Deleted that entire array of history entries" });
 });
 
 module.exports = router;

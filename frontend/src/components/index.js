@@ -11,3 +11,4 @@ export { default as AddNewButton } from "./AddNewButton";
 export { default as Burger } from "./Burger";
 export { default as Page } from "./Page";
 export { default as ButtonSettings } from "./ButtonSettings";
+export { default as Confirm } from "./Confirm";

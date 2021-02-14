@@ -4,7 +4,7 @@ import { AddNewButton /*, ButtonPlaceHolder */, SquashButton } from ".";
 
 function Panel() {
   const [buttons, setButtons] = useState([]);
-  const [createButton, setCreateButton] = useState(false);
+  const [refreshButton, setRefreshButton] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,27 +14,26 @@ function Panel() {
       });
       if (response.data) {
         setButtons(response.data.buttons);
-        setCreateButton(false);
-        console.log({ createButton });
+        setRefreshButton(false);
       } else {
         console.error("No data retrieved");
       }
     };
     fetchData();
-  }, [createButton]);
+  }, [refreshButton]);
 
-  function toggleCreateButton() {
-    setCreateButton(true);
-    console.log({ createButton });
+  function toggleRefreshButtons() {
+    setRefreshButton(true);
   }
 
   return (
     <div className="panel">
-      <AddNewButton createFunction={toggleCreateButton}></AddNewButton>
+      <AddNewButton refreshButtons={toggleRefreshButtons}></AddNewButton>
       <Suspense fallback="Loading...">
         <div className="squashButtons">
           {buttons.map((button) => (
             <SquashButton
+              refreshButtons={toggleRefreshButtons}
               id={button._id}
               key={button._id}
               {...button}

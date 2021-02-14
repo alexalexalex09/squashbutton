@@ -16,6 +16,7 @@ function AddNewButton(props) {
     event.preventDefault();
     event.stopPropagation();
     const body = JSON.stringify({ user: user, title: newButton });
+    //TODO: Rewrite with axios for consistency
     fetch("/api/buttons/create", {
       method: "POST",
       body: body,
@@ -28,7 +29,7 @@ function AddNewButton(props) {
         if (res) {
           console.log(res.button);
           toggleAddDialog();
-          props.createFunction();
+          props.refreshButtons();
         } else {
           console.error("No button created");
         }
