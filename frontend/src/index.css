@@ -349,6 +349,7 @@ li.menuItem {
 /********************************************/
 
 .squashButton {
+  position: relative;
   border: 3px solid var(--main-white);
   width: 80%;
   margin: 1rem auto;
@@ -365,6 +366,7 @@ li.menuItem {
   background-image: url("./images/button.svg");
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
   width: min(12rem, 200px);
   height: min(12rem, 200px);
   margin: 1rem auto 0 auto;
@@ -373,4 +375,29 @@ li.menuItem {
 
 .squashButtonIcon.pressed {
   background-image: url("./images/button-pressed.svg");
+}
+
+.buttonSettings svg {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+}
+
+.buttonSettingsContainer {
+  position: absolute;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  top: 2px;
+  left: 2px;
+  transform-origin: top right;
+  transform: scale(0, 0);
+  overflow: hidden;
+  background: var(--main-background);
+  border-radius: 12px;
+  transition: all 0.2s linear;
+}
+
+.buttonSettingsContainer.show {
+  transform: scale(1, 1);
 }

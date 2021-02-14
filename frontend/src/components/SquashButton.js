@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ButtonSettings from "../components/ButtonSettings";
 import PropTypes from "prop-types";
 
 function SquashButton(props) {
@@ -17,6 +18,7 @@ function SquashButton(props) {
         onTouchEnd={() => setPressed(false)}
       ></button>
       <div className="squashButtonName">{props.title}</div>
+      <ButtonSettings></ButtonSettings>
     </div>
   );
 }

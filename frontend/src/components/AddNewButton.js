@@ -26,7 +26,7 @@ function AddNewButton(props) {
       response.json().then((res) => {
         console.log(res);
         if (res) {
-          console.log(res.buttons);
+          console.log(res.button);
           toggleAddDialog();
           props.createFunction();
         } else {
