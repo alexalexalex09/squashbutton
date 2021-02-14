@@ -7,6 +7,10 @@ router.get("/api/user", (req, res) => {
   res.send({ user: req.user });
 });
 
+router.post("/api/user/set_prefs", (req, res) => {
+  res.send({ success: "Set light mode, time zone, and username" });
+});
+
 router.post("/api/buttons/create", (req, res) => {
   //Create a new button object
   let newButton = new Button({
