@@ -180,6 +180,7 @@ img#logoImg {
   left: 0;
   transition: all 0.3s linear;
   background-color: var(--secondary-background);
+  z-index: 9;
 }
 
 #menuContainer {
