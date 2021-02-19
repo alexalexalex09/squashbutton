@@ -57,7 +57,8 @@ Buttons that tell you when you pressed them last, and change color if you don't 
 ### API
 
 All backend functions accessible as a REST API that authenticates a user
-Functions:
+
+__Functions:__
 
 1. Get buttons
 2. Add new button
