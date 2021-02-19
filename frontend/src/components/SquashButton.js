@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ButtonSettings } from "../components";
+import { ButtonSettings, Reorder } from "../components";
 import axios from "axios";
 import PropTypes from "prop-types";
 
@@ -50,6 +50,12 @@ function SquashButton(props) {
         forButton={props._id}
         refreshButtons={props.refreshButtons}
       ></ButtonSettings>
+      <Reorder
+        position={props.position}
+        refreshButtons={props.refreshButtons}
+        reorderButtons={props.reorderButtons}
+        totalButtons={props.totalButtons}
+      ></Reorder>
     </div>
   );
 }

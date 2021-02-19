@@ -93,6 +93,45 @@ router.post("/api/buttons/update", (req, res) => {
   });
 });
 
+router.post("/api/buttons/move", (req, res) => {
+  if (
+    typeof req.body.moveFrom !== "undefined" &&
+    typeof req.body.moveTo !== "undefined"
+  ) {
+    User.findOne({ profile_id: req.user.id }).exec((err, curUser) => {
+      if (err) {
+        res.send({ error: err });
+      } else {
+        if (
+          -1 < req.body.moveFrom &&
+          req.body.moveFrom < curUser.buttons.length &&
+          -1 < req.body.moveTo &&
+          req.body.moveTo < curUser.buttons.length
+        ) {
+          curUser.buttons.splice(
+            req.body.moveTo,
+            0,
+            curUser.buttons.splice(req.body.moveFrom, 1)[0]
+          );
+          curUser.save().then(() => {
+            res.send({ success: true });
+          });
+        } else {
+          res.send({
+            error:
+              "Cannot move from " +
+              req.body.moveFrom +
+              " to " +
+              req.body.moveTo,
+          });
+        }
+      }
+    });
+  } else {
+    res.send({ error: "No move sent" });
+  }
+});
+
 router.post("/api/buttons/delete", (req, res) => {
   if (req.body.id) {
     User.findOne({ profile_id: req.user.id }).exec((err, curUser) => {
