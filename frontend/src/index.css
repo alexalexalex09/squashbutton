@@ -365,11 +365,11 @@ li.menuItem {
   margin: 1rem auto;
   border-radius: 12px;
   text-align: center;
-  height: 15rem;
+  height: 17.5rem;
   display: grid;
-  grid-template-rows: 1fr 2rem;
+  grid-template-rows: 1fr 2rem 2rem;
   align-items: center;
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 
 .squashButtonIcon {
@@ -387,7 +387,7 @@ li.menuItem {
   background-image: url("./images/button-pressed.svg");
 }
 
-.buttonSettings svg {
+.buttonSettings > svg {
   position: absolute;
   right: 5px;
   top: 5px;
@@ -395,21 +395,61 @@ li.menuItem {
 }
 
 .buttonSettingsContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 1rem 1rem 1rem;
+  box-sizing: border-box;
+  align-content: space-evenly;
   position: absolute;
-  width: calc(100% - 4px);
-  height: calc(100% - 4px);
-  top: 2px;
-  left: 2px;
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
+  top: -3px;
+  left: -3px;
   transform-origin: top right;
   transform: scale(0, 0);
   overflow: hidden;
   background: var(--main-background);
   border-radius: 12px;
   transition: all 0.2s linear;
+  border: 3px solid white;
 }
 
 .buttonSettingsContainer.show {
   transform: scale(1, 1);
+}
+
+.buttonSettingsContainer .closeButton {
+  font-size: 2rem;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 0px;
+  line-height: 1rem;
+}
+
+.buttonSettingsContainer button {
+  border-radius: 8px;
+  border: 3px solid var(--main-white);
+  padding: 0.3rem 0rem;
+  margin-bottom: 0.5rem;
+}
+
+.buttonRenameContainer {
+  display: grid;
+  position: relative;
+  width: 100%;
+  height: 2rem;
+  align-items: center;
+}
+
+.buttonRenameContainer button[type="submit"] {
+  position: absolute;
+  right: 0.5rem;
+  color: var(--main-black);
+  border: none;
+  margin: 0;
+  padding: 0;
+  height: 1rem;
 }
 
 /********************************************/

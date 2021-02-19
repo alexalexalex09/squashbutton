@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Confirm } from "../components";
 import axios from "axios";
-import { FiSettings } from "react-icons/fi";
+import { FiSettings, FiX, FiEdit } from "react-icons/fi";
 
 function useOutsideAlerter(ref, hide) {
   useEffect(() => {
@@ -44,6 +44,7 @@ function ButtonSettings(props) {
   const settingsContainer = useRef(null);
   const deleteConfirm = useRef(null);
   const shadow = useRef(null);
+  const [newButtonName, setNewButtonName] = useState(props.title);
 
   useOutsideAlerter(shadow, deleteConfirm);
 
@@ -56,7 +57,7 @@ function ButtonSettings(props) {
   }
 
   function deleteButton(id) {
-    const fetchData = async () => {
+    const fetchDelete = async () => {
       const data = { id: id };
       const response = await axios({
         url: "/api/buttons/delete",
@@ -70,18 +71,60 @@ function ButtonSettings(props) {
         alert("No response, the server may or may not have deleted the button");
       }
     };
-    fetchData();
+    fetchDelete();
+  }
+
+  function renameButton(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const fetchRename = async () => {
+      const data = {
+        id: props.forButton,
+        title: newButtonName,
+      };
+      const response = await axios({
+        url: "/api/buttons/update",
+        method: "POST",
+        data: data,
+      });
+      if (response.data) {
+        console.log(response.data.button);
+        props.refreshButtons();
+      } else {
+        console.error("Button not renamed");
+      }
+    };
+    fetchRename();
   }
 
   return (
     <div className="buttonSettings">
       <FiSettings onClick={toggleShow}></FiSettings>
       <div className="buttonSettingsContainer" ref={settingsContainer}>
+        <button className="closeButton" onClick={toggleShow}>
+          <FiX></FiX>
+        </button>
+        <form
+          className="buttonRenameContainer"
+          onSubmit={(e) => {
+            renameButton(e);
+          }}
+        >
+          <input
+            type="text"
+            className="buttonRename"
+            value={newButtonName}
+            onChange={(e) => setNewButtonName(e.target.value)}
+          ></input>
+          <button type="submit">
+            <FiEdit onClick={renameButton}></FiEdit>
+          </button>
+        </form>
         <button
-          className="buttonDelete"
+          className="buttonDelete redButton"
           onClick={() => toggleDeleteConfirm(deleteConfirm)}
         >
-          Delete Button
+          Delete This Button
         </button>
       </div>
       <div className="confirmContainer off" ref={deleteConfirm}>

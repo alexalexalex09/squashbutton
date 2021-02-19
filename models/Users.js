@@ -10,6 +10,7 @@ var UserSchema = new Schema(
     preferences: {
       darkMode: Boolean,
       timeZone: String,
+      dateFormat: String,
     },
     buttons: [{ type: Schema.Types.ObjectId, ref: "Button" }],
   },

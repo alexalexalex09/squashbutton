@@ -9,7 +9,7 @@ router.get("/api/user", (req, res) => {
 
 router.post("/api/user/set_prefs", (req, res) => {
   //TODO
-  res.send({ success: "Set light mode, time zone, and username" });
+  res.send({ success: "Set light mode, time zone, date format, and username" });
 });
 
 router.post("/api/buttons/create", (req, res) => {
@@ -60,8 +60,9 @@ router.get("/api/buttons/read", (req, res) => {
     });
 });
 
+//Update takes button id and settings: title and/or colors (as Array containing interval and color)
 router.post("/api/buttons/update", (req, res) => {
-  Button.findByID(req.body.id).exec((err, curButton) => {
+  Button.findById(req.body.id).exec((err, curButton) => {
     if (err) {
       res.send({ error: err });
     } else {
@@ -82,7 +83,7 @@ router.post("/api/buttons/update", (req, res) => {
       }
       //Save it, look it up to return it lean, and send it back
       curButton.save().then((newButton) => {
-        Button.findByID(newButton._id)
+        Button.findById(newButton._id)
           .lean()
           .exec((err, curButton) => {
             res.send({ button: curButton });
@@ -114,9 +115,25 @@ router.post("/api/buttons/delete", (req, res) => {
 
 router.post("/api/buttons/press", (req, res) => {
   //TODO
-  res.send({
-    success:
-      "Current time pushed to button history and history size reduced to 1000 or less",
+  Button.findById(req.body.id).exec((err, curButton) => {
+    const pressed = new Date();
+    const pressedFormatted = pressed.toLocaleString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    });
+    curButton.history.splice(0, 0, pressedFormatted);
+    if (curButton.history.length > 1000) {
+      curButton.history.length = 1000;
+    }
+    curButton.save().then(() => {
+      res.send({
+        pressed: pressedFormatted,
+      });
+    });
   });
 });
 
