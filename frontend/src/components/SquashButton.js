@@ -42,7 +42,9 @@ function SquashButton(props) {
         onTouchEnd={() => setPressed(false)}
       ></button>
       <div className="squashButtonName">{props.title}</div>
-      <div className="lastPressed">Last Pressed: {props.history[0]}</div>
+      <div className="lastPressed">
+        Last Pressed: {props.history[0] || "Never"}
+      </div>
       <ButtonSettings
         title={props.title}
         forButton={props._id}
