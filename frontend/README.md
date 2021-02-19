@@ -45,6 +45,7 @@ Buttons that tell you when you pressed them last, and change color if you don't 
 1. Edit name
 2. Edit button color
 3. Edit color changes
+4. Move up or down in the order
 
 #### Button color changes
 
