@@ -27,12 +27,9 @@ function Panel() {
   }
 
   function reorderButtons(moveFrom, moveTo) {
-    console.log(moveFrom, moveTo);
-    console.log(buttons[moveFrom].title);
     let newButtons = Array.from(buttons);
     newButtons[moveFrom] = buttons[moveTo];
     newButtons[moveTo] = buttons[moveFrom];
-    console.log(newButtons[moveFrom].title);
     setButtons(newButtons);
   }
 

@@ -267,6 +267,7 @@ li.menuItem {
 
 .addNewButton {
   width: 80%;
+  max-width: 22rem;
   border: 3px solid var(--main-white);
   margin: 1rem auto;
   border-radius: 12px;
@@ -363,6 +364,7 @@ li.menuItem {
   position: relative;
   border: 3px solid var(--main-white);
   width: 80%;
+  max-width: 22rem;
   margin: 1rem auto;
   border-radius: 12px;
   text-align: center;

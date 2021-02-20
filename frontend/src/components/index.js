@@ -13,3 +13,4 @@ export { default as Page } from "./Page";
 export { default as ButtonSettings } from "./ButtonSettings";
 export { default as Confirm } from "./Confirm";
 export { default as Reorder } from "./Reorder";
+export { default as Dialog } from "./Dialog";

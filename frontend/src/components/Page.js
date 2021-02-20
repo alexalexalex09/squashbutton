@@ -6,7 +6,7 @@ import { UserContext } from "../context/UserContext";
 function Page() {
   const { user } = useContext(UserContext);
   const [buttons, setButtons] = useState(null);
-  if (user == null) {
+  if (user === null) {
     return <Home></Home>;
   } else {
     return (
