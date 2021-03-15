@@ -52,6 +52,11 @@ function ButtonSettings(props) {
     settingsContainer.current.classList.toggle("show");
   }
 
+  function toggleHistory() {
+    document.querySelector(".historyContainer").classList.toggle("off");
+    document.querySelector("body").classList.toggle("noscroll");
+  }
+
   function toggleDeleteConfirm(ref) {
     ref.current.classList.toggle("off");
   }
@@ -120,6 +125,9 @@ function ButtonSettings(props) {
             <FiEdit onClick={renameButton}></FiEdit>
           </button>
         </form>
+        <button className="buttonHistory linkButton" onClick={toggleHistory}>
+          History
+        </button>
         <button
           className="buttonDelete redButton"
           onClick={() => toggleDeleteConfirm(deleteConfirm)}
@@ -143,6 +151,19 @@ function ButtonSettings(props) {
             yesText="Delete"
           ></Confirm>
         </div>
+      </div>
+      <div className="historyContainer off">
+        <div className="historyTitle">
+          {`History for button "` + props.title + `"`}
+        </div>
+        <button className="closeButton" onClick={toggleHistory}>
+          <FiX></FiX>
+        </button>
+        <ul>
+          {props.history.map((entry, number) => (
+            <li key={props.forButton + number}>{entry}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );

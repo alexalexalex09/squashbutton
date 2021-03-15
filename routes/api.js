@@ -178,7 +178,7 @@ router.post("/api/buttons/press", (req, res) => {
 
 router.post("/api/buttons/unpress", (req, res) => {
   //TODO
-  res.send({ success: "Deleted that entire array of history entries" });
+  res.send({ success: "Deleted the last history entry" });
 });
 
 module.exports = router;

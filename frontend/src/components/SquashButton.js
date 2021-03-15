@@ -49,6 +49,7 @@ function SquashButton(props) {
         title={props.title}
         forButton={props._id}
         refreshButtons={props.refreshButtons}
+        history={props.history}
       ></ButtonSettings>
       <Reorder
         position={props.position}
