@@ -490,6 +490,11 @@ li.menuItem {
   margin-top: 1rem;
 }
 
+.historyDelete {
+  display: inline-block;
+  transform: translate(.1rem,0.2rem);
+}
+
 /********************************************/
 /*[css07] Confirm CSS*/
 /********************************************/

@@ -161,7 +161,12 @@ function ButtonSettings(props) {
         </button>
         <ul>
           {props.history.map((entry, number) => (
-            <li key={props.forButton + number}>{entry}</li>
+            <li key={props.forButton + number}>
+              {entry}
+              <div className="historyDelete">
+                <FiX></FiX>
+              </div>
+            </li>
           ))}
         </ul>
       </div>

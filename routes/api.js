@@ -4,6 +4,7 @@ const Button = require("../models/Buttons");
 const User = require("../models/Users");
 
 router.get("/api/user", (req, res) => {
+  //Get a user object
   res.send({ user: req.user });
 });
 
@@ -48,6 +49,7 @@ router.post("/api/buttons/create", (req, res) => {
 });
 
 router.get("/api/buttons/read", (req, res) => {
+  //Gets the current user's information, included buttons, and sends them. Uses lean() to reduce overhead
   User.findOne({ profile_id: req.user.id })
     .populate("buttons")
     .lean()
@@ -60,7 +62,7 @@ router.get("/api/buttons/read", (req, res) => {
     });
 });
 
-//Update takes button id and settings: title and/or colors (as Array containing interval and color)
+//Update takes button id (req.body.id) and settings: title (req.body.title) and/or colors (req.body.colors as Array containing interval and color)
 router.post("/api/buttons/update", (req, res) => {
   Button.findById(req.body.id).exec((err, curButton) => {
     if (err) {
@@ -94,6 +96,9 @@ router.post("/api/buttons/update", (req, res) => {
 });
 
 router.post("/api/buttons/move", (req, res) => {
+  //Takes a move from (req.body.moveFrom) and move to (req.body.moveTo) parameter and moves
+  //the button at moveFrom to the position specified by moveTo (relative to the original array,
+  //not the array after the button is pulled out of position)
   if (
     typeof req.body.moveFrom !== "undefined" &&
     typeof req.body.moveTo !== "undefined"
@@ -133,6 +138,7 @@ router.post("/api/buttons/move", (req, res) => {
 });
 
 router.post("/api/buttons/delete", (req, res) => {
+  //Takes a button id (req.body.id) and deletes that button for the current user. The button stays in the database though?
   if (req.body.id) {
     User.findOne({ profile_id: req.user.id }).exec((err, curUser) => {
       if (err) {
@@ -153,7 +159,7 @@ router.post("/api/buttons/delete", (req, res) => {
 });
 
 router.post("/api/buttons/press", (req, res) => {
-  //TODO
+  //Takes a button id (req.body.id) and pushes the current time into that button's history
   Button.findById(req.body.id).exec((err, curButton) => {
     const pressed = new Date();
     const pressedFormatted = pressed.toLocaleString("en-US", {
@@ -177,8 +183,22 @@ router.post("/api/buttons/press", (req, res) => {
 });
 
 router.post("/api/buttons/unpress", (req, res) => {
-  //TODO
-  res.send({ success: "Deleted the last history entry" });
+  //Takes a button id (req.body.id) and, optionally, an entry number (req.body.entry), and deletes
+  //the specified entry number or the first entry in the history list
+  Button.findById(req.body.id).exec((err, curButton) => {
+    if (typeof curButton === "undefined" || curButton.history.length === 0) {
+      res.send({ error: "Button not found or has no history" });
+    } else {
+      let entry = req.body.entry;
+      if (typeof entry === "undefined" || entry < curButton.history.length) {
+        entry = 0;
+      }
+      curButton.history.splice(entry, 1);
+      curButton.save().then(() => {
+        res.send({ success: "Deleted entry " + req.body.entry });
+      });
+    }
+  });
 });
 
 module.exports = router;
