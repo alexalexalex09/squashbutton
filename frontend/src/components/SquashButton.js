@@ -8,10 +8,13 @@ function SquashButton(props) {
 
   function pressButton(mouse = true) {
     if (!pressed) {
+      //Check if it hasn't already been pressed. If not, execute.
+      //This will appear as false even we set as true in the touch event
+      //which comes after the mouse event
       setPressed(true);
+      //We now have to check if this is a mouse event. This is set to false
+      //in the touch event handler
       if (mouse) {
-        console.log(props._id, pressed);
-
         const fetchRename = async () => {
           const data = {
             id: props._id,
@@ -40,6 +43,9 @@ function SquashButton(props) {
             ? "squashButtonIcon pressed unselectable noFocus"
             : "squashButtonIcon unselectable noFocus"
         }
+        //These must appear in this order to be handled coorectly by the function above
+        //If not, then it will probably also work. But maybe not.
+        //Note that the pressed state variable impact both button CSS and the calling of pressButton
         onMouseDown={pressButton}
         onMouseUp={() => {
           console.log("MouseUp");
