@@ -39,9 +39,10 @@ function SquashButton(props) {
             : "squashButtonIcon unselectable noFocus"
         }
         onMouseDown={pressButton}
-        onMouseUp={() => setPressed(false)}
-        onTouchStart={pressButton}
-        onTouchEnd={() => setPressed(false)}
+        onMouseUp={() => {
+          console.log("MouseUp");
+          setPressed(false);
+        }}
       ></button>
       <div className="squashButtonName">{props.title}</div>
       <div className="lastPressed">
