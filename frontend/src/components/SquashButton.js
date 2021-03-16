@@ -6,28 +6,30 @@ import PropTypes from "prop-types";
 function SquashButton(props) {
   const [pressed, setPressed] = useState(false);
 
-  function pressButton() {
+  function pressButton(mouse = true) {
     if (!pressed) {
       setPressed(true);
-      console.log(props._id, pressed);
+      if (mouse) {
+        console.log(props._id, pressed);
 
-      const fetchRename = async () => {
-        const data = {
-          id: props._id,
+        const fetchRename = async () => {
+          const data = {
+            id: props._id,
+          };
+          const response = await axios({
+            url: "/api/buttons/press",
+            method: "POST",
+            data: data,
+          });
+          if (response.data) {
+            console.log(response.data.pressed);
+            props.refreshButtons();
+          } else {
+            console.error("Button not pressed");
+          }
         };
-        const response = await axios({
-          url: "/api/buttons/press",
-          method: "POST",
-          data: data,
-        });
-        if (response.data) {
-          console.log(response.data.pressed);
-          props.refreshButtons();
-        } else {
-          console.error("Button not pressed");
-        }
-      };
-      fetchRename();
+        fetchRename();
+      }
     }
   }
   return (
@@ -41,6 +43,10 @@ function SquashButton(props) {
         onMouseDown={pressButton}
         onMouseUp={() => {
           console.log("MouseUp");
+          setPressed(false);
+        }}
+        onTouchStart={() => pressButton(false)}
+        onTouchEnd={() => {
           setPressed(false);
         }}
       ></button>
