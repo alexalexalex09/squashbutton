@@ -7,26 +7,28 @@ function SquashButton(props) {
   const [pressed, setPressed] = useState(false);
 
   function pressButton() {
-    setPressed(true);
-    console.log(props._id, pressed);
+    if (!pressed) {
+      setPressed(true);
+      console.log(props._id, pressed);
 
-    const fetchRename = async () => {
-      const data = {
-        id: props._id,
+      const fetchRename = async () => {
+        const data = {
+          id: props._id,
+        };
+        const response = await axios({
+          url: "/api/buttons/press",
+          method: "POST",
+          data: data,
+        });
+        if (response.data) {
+          console.log(response.data.pressed);
+          props.refreshButtons();
+        } else {
+          console.error("Button not pressed");
+        }
       };
-      const response = await axios({
-        url: "/api/buttons/press",
-        method: "POST",
-        data: data,
-      });
-      if (response.data) {
-        console.log(response.data.pressed);
-        props.refreshButtons();
-      } else {
-        console.error("Button not pressed");
-      }
-    };
-    fetchRename();
+      fetchRename();
+    }
   }
   return (
     <div className="squashButton" id={props._id}>
