@@ -190,12 +190,14 @@ router.post("/api/buttons/unpress", (req, res) => {
       res.send({ error: "Button not found or has no history" });
     } else {
       let entry = req.body.entry;
-      if (typeof entry === "undefined" || entry < curButton.history.length) {
+      if (typeof entry === "undefined" || entry > curButton.history.length) {
         entry = 0;
       }
-      curButton.history.splice(entry, 1);
+      let spliced = curButton.history.splice(entry, 1);
       curButton.save().then(() => {
-        res.send({ success: "Deleted entry " + req.body.entry });
+        res.send({
+          success: "Deleted entry " + req.body.entry + ", " + spliced,
+        });
       });
     }
   });

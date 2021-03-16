@@ -43,6 +43,7 @@ function useOutsideAlerter(ref, hide) {
 function ButtonSettings(props) {
   const settingsContainer = useRef(null);
   const deleteConfirm = useRef(null);
+  const historyContainer = useRef(null);
   const shadow = useRef(null);
   const [newButtonName, setNewButtonName] = useState(props.title);
 
@@ -52,8 +53,8 @@ function ButtonSettings(props) {
     settingsContainer.current.classList.toggle("show");
   }
 
-  function toggleHistory() {
-    document.querySelector(".historyContainer").classList.toggle("off");
+  function toggleHistory(ref) {
+    ref.current.classList.toggle("off");
     document.querySelector("body").classList.toggle("noscroll");
   }
 
@@ -102,6 +103,26 @@ function ButtonSettings(props) {
     fetchRename();
   }
 
+  function unpressButton(historyContainer, button, entry) {
+    const fetchUnpress = async () => {
+      const data = { id: button, entry: entry };
+      const response = await axios({
+        url: "/api/buttons/unpress",
+        method: "POST",
+        data: data,
+      });
+      if (response.data) {
+        //toggleHistory(historyContainer);
+        props.refreshButtons();
+      } else {
+        alert(
+          "No response, the server may or may not have deleted the history entry"
+        );
+      }
+    };
+    fetchUnpress();
+  }
+
   return (
     <div className="buttonSettings">
       <FiSettings onClick={toggleShow}></FiSettings>
@@ -125,7 +146,10 @@ function ButtonSettings(props) {
             <FiEdit onClick={renameButton}></FiEdit>
           </button>
         </form>
-        <button className="buttonHistory linkButton" onClick={toggleHistory}>
+        <button
+          className="buttonHistory linkButton"
+          onClick={() => toggleHistory(historyContainer)}
+        >
           History
         </button>
         <button
@@ -152,18 +176,29 @@ function ButtonSettings(props) {
           ></Confirm>
         </div>
       </div>
-      <div className="historyContainer off">
+      <div className="historyContainer off" ref={historyContainer}>
         <div className="historyTitle">
           {`History for button "` + props.title + `"`}
         </div>
-        <button className="closeButton" onClick={toggleHistory}>
+        <button
+          className="closeButton"
+          onClick={() => toggleHistory(historyContainer)}
+        >
           <FiX></FiX>
         </button>
         <ul>
           {props.history.map((entry, number) => (
-            <li key={props.forButton + number}>
+            <li
+              key={props.forButton + number}
+              id={number + "|" + props.forButton}
+            >
               {entry}
-              <div className="historyDelete">
+              <div
+                className="historyDelete"
+                onClick={() =>
+                  unpressButton(historyContainer, props.forButton, number)
+                }
+              >
                 <FiX></FiX>
               </div>
             </li>
