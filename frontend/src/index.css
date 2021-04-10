@@ -80,7 +80,7 @@ a {
 }
 
 .noscroll {
-  overflow:hidden;
+  overflow: hidden;
 }
 
 button {
@@ -376,26 +376,37 @@ li.menuItem {
   margin: 1rem auto;
   border-radius: 12px;
   text-align: center;
-  height: 17.5rem;
+  height: 19rem;
   display: grid;
   grid-template-rows: 1fr 2rem 2rem;
   align-items: center;
   box-sizing: border-box;
 }
 
-.squashButtonIcon {
-  background-image: url("./images/button.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+.squashButtonBase {
+  position: absolute;
   width: min(12rem, 200px);
   height: min(12rem, 200px);
-  margin: 1rem auto 0 auto;
+  background: #ff2626;
+  transform: translate(0px, -100%);
+  z-index: -1;
+  border-radius: 100px 100px 100px 100px;
+  margin: 0px;
+  filter: brightness(0.7);
+  left: calc(50% - calc(0.5 * min(12rem, 200px)));
+}
+
+.squashButtonIcon {
+  background: #ff2626;
+  width: min(12rem, 200px);
+  height: min(12rem, 200px);
+  margin: 1rem auto;
+  border-radius: 100px;
   cursor: pointer;
 }
 
 .squashButtonIcon.pressed {
-  background-image: url("./images/button-pressed.svg");
+  transform: translateY(13px);
 }
 
 .buttonSettings > svg {
@@ -492,7 +503,7 @@ li.menuItem {
 
 .historyDelete {
   display: inline-block;
-  transform: translate(.1rem,0.2rem);
+  transform: translate(0.1rem, 0.2rem);
 }
 
 /********************************************/

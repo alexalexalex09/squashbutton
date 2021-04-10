@@ -37,25 +37,29 @@ function SquashButton(props) {
   }
   return (
     <div className="squashButton" id={props._id}>
-      <button
-        className={
-          pressed
-            ? "squashButtonIcon pressed unselectable noFocus"
-            : "squashButtonIcon unselectable noFocus"
-        }
-        //These must appear in this order to be handled coorectly by the function above
-        //If not, then it will probably also work. But maybe not.
-        //Note that the pressed state variable impact both button CSS and the calling of pressButton
-        onMouseDown={pressButton}
-        onMouseUp={() => {
-          console.log("MouseUp");
-          setPressed(false);
-        }}
-        onTouchStart={() => pressButton(false)}
-        onTouchEnd={() => {
-          setPressed(false);
-        }}
-      ></button>
+      <div className="squashButtonIconContainer">
+        <button
+          className={
+            pressed
+              ? "squashButtonIcon pressed unselectable noFocus"
+              : "squashButtonIcon unselectable noFocus"
+          }
+          //These must appear in this order to be handled coorectly by the function above
+          //If not, then it will probably also work. But maybe not.
+          //Note that the pressed state variable impact both button CSS and the calling of pressButton
+          onMouseDown={pressButton}
+          onMouseUp={() => {
+            console.log("MouseUp");
+            setPressed(false);
+          }}
+          onTouchStart={() => pressButton(false)}
+          onTouchEnd={() => {
+            setPressed(false);
+          }}
+        ></button>
+        <div className="squashButtonBase"></div>
+      </div>
+
       <div className="squashButtonName">{props.title}</div>
       <div className="lastPressed">
         Last Pressed: {props.history[0] || "Never"}
