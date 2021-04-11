@@ -376,11 +376,19 @@ li.menuItem {
   margin: 1rem auto;
   border-radius: 12px;
   text-align: center;
-  height: 19rem;
+  height: 20rem;
   display: grid;
   grid-template-rows: 1fr 2rem 2rem;
   align-items: center;
   box-sizing: border-box;
+}
+
+.squashButtonIconContainer {
+  align-self: start;
+}
+
+.pressed ~ .squashButtonBase {
+  filter: brightness(0.7) drop-shadow(0px 5px 0px #000a);
 }
 
 .squashButtonBase {
@@ -392,8 +400,9 @@ li.menuItem {
   z-index: -1;
   border-radius: 100px 100px 100px 100px;
   margin: 0px;
-  filter: brightness(0.7);
+  filter: brightness(0.7) drop-shadow(0px 13px 0px #000a);
   left: calc(50% - calc(0.5 * min(12rem, 200px)));
+  transition: all 0.2s linear;
 }
 
 .squashButtonIcon {
@@ -403,6 +412,7 @@ li.menuItem {
   margin: 1rem auto;
   border-radius: 100px;
   cursor: pointer;
+  transition: all 0.2s linear;
 }
 
 .squashButtonIcon.pressed {
